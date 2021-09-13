@@ -1,9 +1,9 @@
 import { Route } from 'react-router';
 import './App.css';
-import Home from './Home/Home';
+import HomePage from './HomePage/HomePage';
 
 function App() {
-  return <Route path="/" exact component={Home} />;
+  return <Route path="/" exact component={HomePage} />;
 }
 
 export default App;
