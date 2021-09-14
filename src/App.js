@@ -1,9 +1,17 @@
 import { Route } from 'react-router';
 import './App.css';
-import HomePage from './HomePage/HomePage';
+import AppBar from './AppBar/AppBar';
+import HomePage from './Views/HomePage';
+import MoviesPage from './Views/MoviesPage';
 
 function App() {
-  return <Route path="/" exact component={HomePage} />;
+  return (
+    <>
+      <AppBar />
+      <Route path="/" exact component={HomePage} />
+      <Route path="/movies" component={MoviesPage} />
+    </>
+  );
 }
 
 export default App;
