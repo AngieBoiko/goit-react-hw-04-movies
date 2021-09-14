@@ -9,9 +9,9 @@ const getTrendingMovies = () =>
     return Promise.reject(new Error('This request is not successful'));
   });
 
-const getSearchQueryMovies = () =>
+const getSearchQueryMovies = query =>
   fetch(
-    `${BASE_URL}search/movie?api_key=${KEY}&language=en-US&page=1&include_adult=false`,
+    `${BASE_URL}search/movie?api_key=${KEY}&language=en-US&query=${query}&page=1&include_adult=false`,
   ).then(response => {
     if (response.ok) {
       return response.json();
