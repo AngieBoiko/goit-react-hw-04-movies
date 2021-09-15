@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { getTrendingMovies } from '../Services/MoviesApi';
 
 export default function TrendingMovieList() {
@@ -20,7 +21,7 @@ export default function TrendingMovieList() {
         {movies.map(movie => {
           return (
             <li key={movie.id}>
-              <Link to="/movies/">{movie.original_title}</Link>
+              <Link to={`/movies/${movie.id}`}>{movie.original_title}</Link>
             </li>
           );
         })}
@@ -28,3 +29,5 @@ export default function TrendingMovieList() {
     </section>
   );
 }
+
+TrendingMovieList.propTypes = {};
