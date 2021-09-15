@@ -7,24 +7,31 @@ export default function MoviesPage() {
   const [movieList, setMovieList] = useState([]);
 
   function onInput(e) {
-    setQuery(e.currentTarget.value);
+    setQuery(e.currentTarget.value.toLowerCase());
   }
   function onSubmit(e) {
     e.preventDefault();
-    getSearchQueryMovies(query).then(
-      data => console.log(data),
-      //setMovieList(data.results),
-    );
+    getSearchQueryMovies(query)
+      .then(data => setMovieList(data.results))
+      .catch(error => new Error());
+    setQuery('');
+    e.target.firstChild.value = '';
   }
 
   useEffect(() => {});
 
   return (
-    <form>
-      <input onChange={onInput}></input>
-      <button type="submit" onClick={onSubmit}>
-        Submit
-      </button>
-    </form>
+    <>
+      <form onSubmit={onSubmit}>
+        <input onChange={onInput}></input>
+        <button type="submit">Submit</button>
+      </form>
+      <ul>
+        {movieList &&
+          movieList.map(movie => (
+            <li key={movie.id}>{movie.original_title}</li>
+          ))}
+      </ul>
+    </>
   );
 }
