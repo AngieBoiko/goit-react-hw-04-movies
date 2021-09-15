@@ -1,5 +1,5 @@
 const BASE_URL = 'https://api.themoviedb.org/3';
-const KEY = 'c08cabba41a8ed2d95fbb0a8eb1f4229';
+export const KEY = 'c08cabba41a8ed2d95fbb0a8eb1f4229';
 
 const getTrendingMovies = () =>
   fetch(`${BASE_URL}/trending/all/day?api_key=${KEY}`).then(response => {
@@ -11,7 +11,7 @@ const getTrendingMovies = () =>
 
 const getSearchQueryMovies = query =>
   fetch(
-    `${BASE_URL}search/movie?api_key=${KEY}&language=en-US&query=${query}&page=1&include_adult=false`,
+    `${BASE_URL}/search/movie?api_key=${KEY}&language=en-US&query=${query}&page=1&include_adult=false`,
   ).then(response => {
     if (response.ok) {
       return response.json();
@@ -19,8 +19,8 @@ const getSearchQueryMovies = query =>
     return Promise.reject(new Error('This request is not successful'));
   });
 
-const getMovieDetails = () =>
-  fetch(`${BASE_URL}/movie/{movie_id}?api_key=${KEY}&language=en-US`).then(
+const getMovieDetails = movieId =>
+  fetch(`${BASE_URL}/movie/${movieId}?api_key=${KEY}&language=en-US`).then(
     response => {
       if (response.ok) {
         return response.json();
