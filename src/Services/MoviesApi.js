@@ -29,10 +29,9 @@ const getMovieDetails = movieId =>
     },
   );
 
-const getMovieCredits = () =>
+const getMovieCredits = movieId =>
   fetch(
-    movieId =>
-      `${BASE_URL}/movie/${movieId}/credits?api_key=${KEY}&language=en-US`,
+    `${BASE_URL}/movie/${movieId}/credits?api_key=${KEY}&language=en-US`,
   ).then(response => {
     if (response.ok) {
       return response.json();
