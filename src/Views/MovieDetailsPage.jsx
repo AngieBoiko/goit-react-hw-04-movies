@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useRouteMatch, Route } from 'react-router-dom';
 import { getMovieDetails, KEY } from '../Services/MoviesApi';
+import Cast from './Cast';
 
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const { url } = useRouteMatch();
 
   useEffect(() => {
     getMovieDetails(movieId)
@@ -42,12 +44,17 @@ export default function MovieDetailsPage() {
           <h4>Additional information</h4>
           <ul>
             <li>
-              <Link to="">Cast</Link>
+              <Link to={`${url}/cast`}>Cast</Link>
             </li>
             <li>
               <Link to="">Reviews</Link>
             </li>
           </ul>
+          <Route
+            path={`${url}/cast`}
+            render={() => <Cast movieId={movieId} />}
+          />
+          ;
         </section>
       )}
     </>
