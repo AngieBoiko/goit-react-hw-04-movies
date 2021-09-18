@@ -12,20 +12,23 @@ export default function Cast({ movieId }) {
   }, [movieId]);
 
   return (
-    <ul>
-      {cast &&
-        cast.map(item => {
-          return (
-            <li key={item.id}>
-              <img
-                src={`https://image.tmdb.org/t/p/w300${item.profile_path}?api_key=${KEY}`}
-                alt={item.name}
-              ></img>
-              <p>{item.name}</p>
-              <p>Character: {item.character}</p>
-            </li>
-          );
-        })}
-    </ul>
+    <>
+      {cast && (
+        <ul>
+          {cast.map(item => {
+            return (
+              <li key={item.id}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w300${item.profile_path}?api_key=${KEY}`}
+                  alt={item.name}
+                ></img>
+                <p>{item.name}</p>
+                <p>Character: {item.character}</p>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </>
   );
 }
