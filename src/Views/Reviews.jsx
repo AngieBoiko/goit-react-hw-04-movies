@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { onScroll } from '../Scroll/Scroll';
 import { getMovieReviews } from '../Services/MoviesApi';
 
 export default function Reviews({ movieId }) {
   const [reviews, setReviews] = useState(null);
 
   useEffect(() => {
-    getMovieReviews(movieId).then(response => setReviews(response.results));
+    getMovieReviews(movieId)
+      .then(response => setReviews(response.results))
+      .finally(onScroll());
   }, [movieId]);
 
   return (
