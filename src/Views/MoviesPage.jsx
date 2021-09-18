@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { getSearchQueryMovies } from '../Services/MoviesApi';
 import { useHistory, useLocation } from 'react-router';
 import MovieList from '../MovieList/MovieList';
+import { toast } from 'react-toastify';
 
 export default function MoviesPage() {
   const [query, setQuery] = useState('');
@@ -15,8 +16,14 @@ export default function MoviesPage() {
   useEffect(() => {
     if (foundQuery) {
       getSearchQueryMovies(foundQuery)
-        .then(data => setMovieList(data.results))
-        .catch(error => new Error());
+        .then(data => {
+          if (data.results.length === 0) {
+            toast.error('Please, enter another movie!');
+            history.push({ ...location, search: '' });
+          }
+          setMovieList(data.results);
+        })
+        .catch(error => toast.error('Please, enter another movie!'));
       setQuery('');
     }
   }, [foundQuery]);
@@ -26,10 +33,6 @@ export default function MoviesPage() {
   }
   function onSubmit(e) {
     e.preventDefault();
-    getSearchQueryMovies(query)
-      .then(data => setMovieList(data.results))
-      .catch(error => new Error());
-    setQuery('');
     e.target.firstChild.value = '';
     history.push({
       ...location,
