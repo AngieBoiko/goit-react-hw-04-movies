@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams, useRouteMatch, Route } from 'react-router-dom';
 import { getMovieDetails, KEY } from '../Services/MoviesApi';
 import Cast from './Cast';
+import Reviews from './Reviews';
+import GoBackBtn from '../GoBackButton/GoBackBtn';
 
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
-  const { url } = useRouteMatch();
+  const { url, path } = useRouteMatch();
 
   useEffect(() => {
     getMovieDetails(movieId)
@@ -18,7 +20,7 @@ export default function MovieDetailsPage() {
     <>
       {movie && (
         <section>
-          <button>Go back</button>
+          <GoBackBtn />
           <div>
             <ul>
               <li>
@@ -47,12 +49,16 @@ export default function MovieDetailsPage() {
               <Link to={`${url}/cast`}>Cast</Link>
             </li>
             <li>
-              <Link to="">Reviews</Link>
+              <Link to={`${url}/reviews`}>Reviews</Link>
             </li>
           </ul>
           <Route
-            path={`${url}/cast`}
+            path={`${path}/cast`}
             render={() => <Cast movieId={movieId} />}
+          />
+          <Route
+            path={`${path}/reviews`}
+            render={() => <Reviews movieId={movieId} />}
           />
           ;
         </section>
