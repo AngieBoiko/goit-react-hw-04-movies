@@ -39,10 +39,9 @@ const getMovieCredits = movieId =>
     return Promise.reject(new Error('This request is not successful'));
   });
 
-const getMovieReviews = () =>
+const getMovieReviews = movieId =>
   fetch(
-    movieId =>
-      `${BASE_URL}/movie/${movieId}/reviews?api_key=${KEY}&language=en-US&page=1`,
+    `${BASE_URL}/movie/${movieId}/reviews?api_key=${KEY}&language=en-US&page=1`,
   ).then(response => {
     if (response.ok) {
       return response.json();
