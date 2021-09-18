@@ -1,6 +1,6 @@
 import { Route, Switch } from 'react-router';
 import './App.css';
-import AppBar from './AppBar/AppBar';
+import Navigation from './Navigation/Navigation';
 import HomePage from './Views/HomePage';
 import MovieDetailsPage from './Views/MovieDetailsPage';
 import MoviesPage from './Views/MoviesPage';
@@ -9,7 +9,7 @@ import NotFoundView from './Views/NotFoundView';
 function App() {
   return (
     <>
-      <AppBar />
+      <Navigation />
       <Switch>
         <Route path="/" exact component={HomePage} />
         <Route path="/movies" exact component={MoviesPage} />
