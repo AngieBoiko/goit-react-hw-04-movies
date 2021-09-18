@@ -1,20 +1,42 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams, useRouteMatch, Route } from 'react-router-dom';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
+import {
+  Link,
+  useParams,
+  useRouteMatch,
+  Route,
+  useLocation,
+  useHistory,
+} from 'react-router-dom';
 import { getMovieDetails, KEY } from '../Services/MoviesApi';
-import Cast from './Cast';
-import Reviews from './Reviews';
 import GoBackBtn from '../GoBackButton/GoBackBtn';
+import { toast } from 'react-toastify';
+import { onScroll } from '../Scroll/Scroll';
+import Spinner from '../Loader/Loader';
+
+const Cast = lazy(() => import('./Cast' /*webpackChunkName:'movie-cast'*/));
+const Reviews = lazy(() =>
+  import('./Reviews' /*webpackChunkName:'movie-reviews'*/),
+);
 
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const { url, path } = useRouteMatch();
+  const location = useLocation();
+  const history = useHistory();
 
   useEffect(() => {
     getMovieDetails(movieId)
       .then(setMovie)
-      .catch(error => new Error());
+      .catch(error => toast.error('Sorry, something go wrong'))
+      .finally(onScroll());
   }, [movieId]);
+
+  function onLinkClick(e) {
+    if (location?.state?.from?.location) {
+      history.push(location.state.from.location);
+    }
+  }
 
   return (
     <>
@@ -46,21 +68,48 @@ export default function MovieDetailsPage() {
           <h4>Additional information</h4>
           <ul>
             <li>
-              <Link to={`${url}/cast`}>Cast</Link>
+              <Link
+                onClick={onLinkClick}
+                to={{
+                  pathname: `${url}/cast`,
+                  state: {
+                    from: {
+                      location: location.state.from.location,
+                      label: 'Go back to movies',
+                    },
+                  },
+                }}
+              >
+                Cast
+              </Link>
             </li>
             <li>
-              <Link to={`${url}/reviews`}>Reviews</Link>
+              <Link
+                onClick={onLinkClick}
+                to={{
+                  pathname: `${url}/reviews`,
+                  state: {
+                    from: {
+                      location: location.state.from.location,
+                      label: 'Go back to movies',
+                    },
+                  },
+                }}
+              >
+                Reviews
+              </Link>
             </li>
           </ul>
-          <Route
-            path={`${path}/cast`}
-            render={() => <Cast movieId={movieId} />}
-          />
-          <Route
-            path={`${path}/reviews`}
-            render={() => <Reviews movieId={movieId} />}
-          />
-          ;
+          <Suspense fallback={<Spinner />}>
+            <Route
+              path={`${path}/cast`}
+              render={() => <Cast movieId={movieId} />}
+            />
+            <Route
+              path={`${path}/reviews`}
+              render={() => <Reviews movieId={movieId} />}
+            />
+          </Suspense>
         </section>
       )}
     </>
