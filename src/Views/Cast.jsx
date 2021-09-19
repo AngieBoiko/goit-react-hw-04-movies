@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { getMovieCredits } from '../Services/MoviesApi';
 import { KEY } from '../Services/MoviesApi';
 import { onScroll } from '../Scroll/Scroll';
@@ -49,3 +50,6 @@ export default function Cast({ movieId }) {
     </>
   );
 }
+Cast.propTypes = {
+  movieId: PropTypes.number.isRequired,
+};

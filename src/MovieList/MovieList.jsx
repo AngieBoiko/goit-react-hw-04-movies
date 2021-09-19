@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './styles.module.css';
+import PropTypes from 'prop-types';
 
 export default function MovieList({ movieArray }) {
   const location = useLocation();
@@ -32,3 +33,7 @@ export default function MovieList({ movieArray }) {
     </ul>
   );
 }
+
+MovieList.propTypes = {
+  movieArray: PropTypes.func.isRequired,
+};
