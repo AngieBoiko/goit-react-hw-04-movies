@@ -11,7 +11,7 @@ export default function Reviews({ movieId }) {
   useEffect(() => {
     getMovieReviews(movieId)
       .then(response => setReviews(response.results))
-      .finally(onScroll());
+      .finally(() => onScroll());
   }, [movieId]);
 
   return (

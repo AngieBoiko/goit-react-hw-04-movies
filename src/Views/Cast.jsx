@@ -12,7 +12,7 @@ export default function Cast({ movieId }) {
     getMovieCredits(movieId)
       .then(response => setCast(response.cast))
       .catch(error => new Error())
-      .finally(onScroll());
+      .finally(() => onScroll());
   }, [movieId]);
 
   return (

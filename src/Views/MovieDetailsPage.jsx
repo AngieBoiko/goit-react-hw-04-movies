@@ -30,7 +30,7 @@ export default function MovieDetailsPage() {
     getMovieDetails(movieId)
       .then(setMovie)
       .catch(error => toast.error('Sorry, something go wrong'))
-      .finally(onScroll());
+      .finally(()=>onScroll());
   }, [movieId]);
 
   function onLinkClick(e) {
