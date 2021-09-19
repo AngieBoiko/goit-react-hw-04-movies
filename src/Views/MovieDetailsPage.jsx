@@ -55,7 +55,7 @@ export default function MovieDetailsPage() {
               <li className={styles.movie_item}>
                 <h2 className={styles.movie_title}>{movie.original_title}</h2>
                 <p className={styles.movie_details_text}>
-                  User score:{movie.vote_average}
+                  User score: {movie.vote_average}
                 </p>
                 <h3 className={styles.movie_details_title}>Overview</h3>
                 <p className={styles.movie_details_text}>{movie.overview}</p>
