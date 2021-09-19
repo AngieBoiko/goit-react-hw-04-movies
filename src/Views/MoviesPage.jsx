@@ -4,6 +4,7 @@ import { getSearchQueryMovies } from '../Services/MoviesApi';
 import { useHistory, useLocation } from 'react-router';
 import MovieList from '../MovieList/MovieList';
 import { toast } from 'react-toastify';
+import styles from './styles.module.css';
 
 export default function MoviesPage() {
   const [query, setQuery] = useState('');
@@ -18,7 +19,7 @@ export default function MoviesPage() {
       getSearchQueryMovies(foundQuery)
         .then(data => {
           if (data.results.length === 0) {
-            toast.error('Please, enter another movie!');
+            toast.error('This movie is absent. Please, enter another movie!');
             history.push({ ...location, search: '' });
           }
           setMovieList(data.results);
@@ -34,17 +35,22 @@ export default function MoviesPage() {
   function onSubmit(e) {
     e.preventDefault();
     e.target.firstChild.value = '';
-    history.push({
-      ...location,
-      search: `query=${query}`,
-    });
+    if (query === '') {
+      toast.warning('Please, enter movie!');
+    } else
+      history.push({
+        ...location,
+        search: `query=${query}`,
+      });
   }
 
   return (
     <>
-      <form onSubmit={onSubmit}>
-        <input onChange={onInput}></input>
-        <button type="submit">Search</button>
+      <form onSubmit={onSubmit} className={styles.form}>
+        <input onChange={onInput} className={styles.form_input}></input>
+        <button type="submit" className={styles.form_btn}>
+          Search
+        </button>
       </form>
       <MovieList movieArray={movieList} />
     </>

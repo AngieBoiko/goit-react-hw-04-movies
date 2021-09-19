@@ -1,6 +1,6 @@
 const onScroll = () => {
   window.scrollTo({
-    top: 3000,
+    top: document.documentElement.scrollHeight,
     behavior: 'smooth',
   });
 };

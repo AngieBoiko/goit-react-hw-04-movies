@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { onScroll } from '../Scroll/Scroll';
 import { getMovieReviews } from '../Services/MoviesApi';
+import styles from './styles.module.css';
 
 export default function Reviews({ movieId }) {
   const [reviews, setReviews] = useState(null);
@@ -19,8 +20,8 @@ export default function Reviews({ movieId }) {
           {reviews.map(review => {
             return (
               <li key={uuidv4()}>
-                <h3>{review.author}</h3>
-                <p>{review.content}</p>
+                <h3 className={styles.review_author}>{review.author}</h3>
+                <p className={styles.review_text}>{review.content}</p>
               </li>
             );
           })}

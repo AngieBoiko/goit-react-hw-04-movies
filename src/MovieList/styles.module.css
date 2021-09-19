@@ -1,0 +1,14 @@
+.item {
+  margin: 5px 0;
+  padding: 2px;
+}
+.movie_link {
+  color: rgba(0, 0, 0, 6);
+
+  font-size: 17px;
+  font-weight: 500;
+  transition: 300ms cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.movie_link:hover {
+  color: palevioletred;
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getMovieCredits } from '../Services/MoviesApi';
 import { KEY } from '../Services/MoviesApi';
 import { onScroll } from '../Scroll/Scroll';
+import styles from './styles.module.css';
 
 export default function Cast({ movieId }) {
   const [cast, setCast] = useState(null);
@@ -25,15 +26,21 @@ export default function Cast({ movieId }) {
                     src={`https://image.tmdb.org/t/p/w300${item.profile_path}?api_key=${KEY}`}
                     alt={item.name}
                   ></img>
-                  <p>{item.name}</p>
-                  <p>Character: {item.character}</p>
+                  <p className={styles.actor_name}>{item.name}</p>
+                  <p>
+                    <span className={styles.character}>Character</span>:{' '}
+                    {item.character}
+                  </p>
                 </li>
               );
             } else
               return (
                 <li key={item.id}>
                   <p>{item.name}</p>
-                  <p>Character: {item.character}</p>
+                  <p>
+                    <span className={styles.character}>Character</span>:
+                    {item.character}
+                  </p>
                 </li>
               );
           })}

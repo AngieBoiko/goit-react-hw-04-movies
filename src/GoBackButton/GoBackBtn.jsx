@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import styles from './styles.module.css';
 
 export default function GoBackBtn() {
   const history = useHistory();
@@ -8,7 +9,7 @@ export default function GoBackBtn() {
     history.push(location?.state?.from?.location ?? '/');
   };
   return (
-    <button type="button" onClick={onClickFunc}>
+    <button type="button" onClick={onClickFunc} className={styles.btn}>
       {location?.state?.from?.label ?? 'Go back'}
     </button>
   );

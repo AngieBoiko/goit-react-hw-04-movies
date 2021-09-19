@@ -4,9 +4,16 @@
 }
 .navigation {
   display: flex;
-  justify-content: baseline;
-  align-items: center;
+  align-items: baseline;
+  justify-content: flex-start;
+  margin: 10px 0;
 }
-.listItem {
+.list_item {
   margin-right: 10px;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 700;
+}
+.nav_container {
+  border-bottom: 2px inset grey;
 }
